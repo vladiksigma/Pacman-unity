@@ -16,6 +16,26 @@ public class Pacman : MonoBehaviour
         movement = GetComponent<Movement>();
     }
 
+    public void SetDir(int a)
+    {
+        if (a == 0)
+        {
+            movement.SetDirection(Vector2.up);
+        }
+        else if(a == 1)
+        {
+            movement.SetDirection(Vector2.down);
+        }
+        else if (a == 2)
+        {
+            movement.SetDirection(Vector2.left);
+        }
+        else if (a == 3)
+        {
+            movement.SetDirection(Vector2.right);
+        }
+    }
+
     private void Update()
     {
         // Set the new direction based on the current input

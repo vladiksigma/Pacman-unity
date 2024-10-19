@@ -5,6 +5,7 @@ public class SwipeDetector : MonoBehaviour
     private Vector2 startTouchPosition, endTouchPosition;
     private float swipeDistanceThreshold = 50f;
     public Pacman pac;
+    public AudioSource audioSource;
 
     private void Start()
     {
