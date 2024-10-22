@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Ghost[] ghosts;
     [SerializeField] private Pacman pacman;
     [SerializeField] private Transform pellets;
-    [SerializeField] private Text gameOverText;
+    [SerializeField] private GameObject gameOverText;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text livesText;
+
+    public List<GameObject> butts;
+    public GameObject gm;
 
     public AudioSource aso1;
     public AudioSource aso2;
@@ -24,6 +28,14 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; } = 3;
 
     private int ghostMultiplier = 1;
+
+    public void Close()
+    {
+
+
+
+
+    }
 
     private void OffSounds()
     {
@@ -40,7 +52,21 @@ public class GameManager : MonoBehaviour
         aso5.volume = 0.5f;
     }
 
+    public void ButtsOff()
+    {
+        for(int i = 0; i < butts.Count; i++) 
+        {
+            butts[i].SetActive(false);
+        }
+    }
 
+    public void ButtsOn()
+    {
+        for (int i = 0; i < butts.Count; i++)
+        {
+            butts[i].SetActive(true);
+        }
+    }
 
     private void Awake()
     {
@@ -65,13 +91,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (lives <= 0 && Input.anyKeyDown) {
-            NewGame();
-        }
+        
     }
 
-    private void NewGame()
+    public void NewGame()
     {
+        ButtsOn();
         OffSounds();
         aso1.Play();
         SetScore(0);
@@ -82,7 +107,7 @@ public class GameManager : MonoBehaviour
 
     private void NewRound()
     {
-        gameOverText.enabled = false;
+        gameOverText.SetActive(false);
 
         foreach (Transform pellet in pellets) {
             pellet.gameObject.SetActive(true);
@@ -102,7 +127,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        gameOverText.enabled = true;
+        gameOverText.SetActive(true);
+        ButtsOff();
 
         for (int i = 0; i < ghosts.Length; i++) {
             ghosts[i].gameObject.SetActive(false);
